@@ -1,17 +1,17 @@
-# –Ú•W
-ŠJ”­ŠÂ‹«‚ğdocker-compose‚ğg‚Á‚Äì¬‚·‚éB  
-‰º‹L‚ğ“ü‚ê‚éB(XV)  
+# ç›®æ¨™
+é–‹ç™ºç’°å¢ƒã‚’docker-composeã‚’ä½¿ã£ã¦ä½œæˆã™ã‚‹ã€‚  
+ä¸‹è¨˜ã‚’å…¥ã‚Œã‚‹ã€‚(éšæ™‚æ›´æ–°)  
  - gitlab
  - jenkins
- - EEE
+ - ãƒ»ãƒ»ãƒ»
 
-# ‰Šúİ’è
-‚à‚ë‚à‚ë‚â‚Á‚Ä‚¨‚­  
-`yum -y update`‚à‚·‚é‚±‚Æ  
+# åˆæœŸè¨­å®š
+ã‚‚ã‚ã‚‚ã‚ã‚„ã£ã¦ãŠã  
+`yum -y update`ã‚‚ã™ã‚‹ã“ã¨  
 
 
 # install
-docker‚ÌƒCƒ“ƒXƒg[ƒ‹
+dockerã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
 ```
 yum install -y yum-utils device-mapper-persistent-data lvm2
 
@@ -25,12 +25,12 @@ systemctl start docker
 
 systemctl enable docker
 ```
-Šm”F
+ç¢ºèª
 ```
 docker ps
 ```
 
-docker-compose‚ÌƒCƒ“ƒXƒg[ƒ‹
+docker-composeã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
 ```
 curl -L https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 
@@ -41,8 +41,8 @@ docker-compose --version
 curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose --version | awk 'NR==1{print $NF}')/contrib/completion/bash/docker-compose > /etc/bash_completion.d/docker-compose
 ```
 
-gitlab‚ÌƒCƒ“ƒXƒg[ƒ‹
-[Ql](https://github.com/sameersbn/docker-gitlab#quick-start)
+gitlabã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
+[å‚è€ƒ](https://github.com/sameersbn/docker-gitlab#quick-start)
 
 ```
 yum -y install wget
@@ -53,32 +53,32 @@ pwd
 wget https://raw.githubusercontent.com/sameersbn/docker-gitlab/master/docker-compose.yml
 
 ```
-docker-compose.yml‚ğ•ÒW  
+docker-compose.ymlã‚’ç·¨é›†  
 
 
-jenkins‚ÌƒCƒ“ƒXƒg[ƒ‹  
+jenkinsã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«  
 ```
 mkdir -p /srv/docker/jenkins/jenkins
-chmod -R 1000 /srv/docker/jenkins/jenkins
+chown -R 1000 /srv/docker/jenkins/jenkins
 
 ```
-docker-compose.yml‚ğ•ÒW
+docker-compose.ymlã‚’ç·¨é›†
 
-# ‹N“®
-•K—v‚ÈƒRƒ“ƒeƒi‚·‚×‚Ä‘‚«‚«‚Á‚½‚çˆÈ‰º‚Å‹N“®‚·‚éB  
-¦ˆÈ‰º‚ÌƒRƒ}ƒ“ƒh‚Í•W€o—Í‚ÉƒƒO‚ª‚‚ê—¬‚µ‚É‚È‚é‚ª‰‰ñ‚ÍŒ©‚Æ‚¢‚½‚Ù‚¤‚ª‚¢‚¢B
+# èµ·å‹•
+å¿…è¦ãªã‚³ãƒ³ãƒ†ãƒŠã™ã¹ã¦æ›¸ããã£ãŸã‚‰ä»¥ä¸‹ã§èµ·å‹•ã™ã‚‹ã€‚  
+â€»ä»¥ä¸‹ã®ã‚³ãƒãƒ³ãƒ‰ã¯æ¨™æº–å‡ºåŠ›ã«ãƒ­ã‚°ãŒå‚ã‚Œæµã—ã«ãªã‚‹ãŒåˆå›ã¯è¦‹ã¨ã„ãŸã»ã†ãŒã„ã„ã€‚
 ```
 docker-compose up
 ```
 
 
-# Ú‘±‚Å‚«‚é‚©Šm”F  
+# æ¥ç¶šã§ãã‚‹ã‹ç¢ºèª  
  - gitlab  
 http://IPaddress:10080  
 
  - jenkins  
 http://IPaddress:18080  
-jenkins‚Ì‰‰ñƒƒOƒCƒ“‚ÌƒpƒXƒ[ƒh‚ÍˆÈ‰ºƒRƒ}ƒ“ƒh‚ÅƒRƒ“ƒeƒi‚É“ü‚Á‚ÄŠm”F‚·‚éB  
+jenkinsã®åˆå›ãƒ­ã‚°ã‚¤ãƒ³æ™‚ã®ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã¯ä»¥ä¸‹ã‚³ãƒãƒ³ãƒ‰ã§ã‚³ãƒ³ãƒ†ãƒŠã«å…¥ã£ã¦ç¢ºèªã™ã‚‹ã€‚  
 ```
 docker exec -it docker_jenkins_1 bash
 ```
