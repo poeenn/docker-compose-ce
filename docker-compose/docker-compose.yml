@@ -157,7 +157,7 @@ services:
     ports:
      - 18080:8080
     volumes:
-     - /srv/docker/jenkins/jenkins
+     - /srv/docker/jenkins/jenkins:/var/jenkins_home
     links:
      - gitlab:gitlab
 
