@@ -59,7 +59,7 @@ docker-compose.ymlを編集
 jenkinsのインストール  
 ```
 mkdir -p /srv/docker/jenkins/jenkins
-chown -R 1000 /srv/docker/jenkins/jenkins
+chown -R 1000:1000 /srv/docker/jenkins/jenkins
 
 ```
 docker-compose.ymlを編集
@@ -80,5 +80,5 @@ http://IPaddress:10080
 http://IPaddress:18080  
 jenkinsの初回ログイン時のパスワードは以下コマンドでコンテナに入って確認する。  
 ```
-docker exec -it docker_jenkins_1 bash
+docker exec -it jenkins bash
 ```
