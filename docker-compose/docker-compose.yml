@@ -30,7 +30,7 @@ services:
     - redis
     - postgresql
     ports:
-    - "10080:80"
+    - "871:80"
     - "10022:22"
     volumes:
     - /srv/docker/gitlab/gitlab:/home/git/data:Z
@@ -159,9 +159,49 @@ services:
     restart: always
     image: jenkins/jenkins:latest
     ports:
-     - 18080:8080
+     - 873:8080
     volumes:
      - /srv/docker/jenkins/jenkins:/var/jenkins_home
     links:
      - gitlab:gitlab
+
+
+
+
+  rocketchat:
+    container_name: rocketchat
+    image: rocketchat/rocket.chat:latest
+    command: bash -c 'for i in `seq 1 30`; do node main.js && s=$$? && break || s=$$?; echo "Tried $$i times. Waiting 5 secs..."; sleep 5; done; (exit $$s)'
+    restart: unless-stopped
+    volumes:
+      - /srv/docker/rocketchat:/app/uploads
+    environment:
+      - PORT=3000
+      - ROOT_URL=http://localhost:3000
+      - MONGO_URL=mongodb://mongo:27017/rocketchat
+      - MONGO_OPLOG_URL=mongodb://mongo:27017/local
+    depends_on:
+      - mongo
+    ports:
+      - 8000:3000
+    labels:
+      - "traefik.backend=rocketchat"
+      - "traefik.frontend.rule=Host: your.domain.tld"
+
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    restart: unless-stopped
+    volumes:
+     - /srv/docker/mongodb:/data/db
+    command: mongod --smallfiles --oplogSize 128 --replSet rs0 --storageEngine=mmapv1
+    labels:
+      - "traefik.enable=false"
+
+  mongo-init-replica:
+    image: mongo:latest
+    command: 'bash -c "for i in `seq 1 30`; do mongo mongo/rocketchat --eval \"rs.initiate({ _id: ''rs0'', members: [ { _id: 0, host: ''localhost:27017'' } ]})\" && s=$$? && break || s=$$?; echo \"Tried $$i times. Waiting 5 secs...\"; sleep 5; done; (exit $$s)"'
+    depends_on:
+      - mongo
+
 
