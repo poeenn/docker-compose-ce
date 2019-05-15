@@ -30,7 +30,7 @@ services:
     - redis
     - postgresql
     ports:
-    - "871:80"
+    - "10080:10080"
     - "10022:22"
     volumes:
     - /srv/docker/gitlab/gitlab:/home/git/data:Z
@@ -159,13 +159,11 @@ services:
     restart: always
     image: jenkins/jenkins:latest
     ports:
-     - 873:8080
+     - 18080:8080
     volumes:
      - /srv/docker/jenkins/jenkins:/var/jenkins_home
     links:
      - gitlab:gitlab
-
-
 
 
   rocketchat:
@@ -183,7 +181,7 @@ services:
     depends_on:
       - mongo
     ports:
-      - 8000:3000
+      - 3000:3000
     labels:
       - "traefik.backend=rocketchat"
       - "traefik.frontend.rule=Host: your.domain.tld"
@@ -203,5 +201,16 @@ services:
     command: 'bash -c "for i in `seq 1 30`; do mongo mongo/rocketchat --eval \"rs.initiate({ _id: ''rs0'', members: [ { _id: 0, host: ''localhost:27017'' } ]})\" && s=$$? && break || s=$$?; echo \"Tried $$i times. Waiting 5 secs...\"; sleep 5; done; (exit $$s)"'
     depends_on:
       - mongo
+
+
+  nginx:
+    container_name: nginx
+    build: nginx
+    ports:
+     - 80:80
+    links:
+     - gitlab:gitlab
+     - jenkins:jenkins
+     - rocketchat:rocketchat
 
 
